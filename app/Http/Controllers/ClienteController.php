@@ -14,8 +14,8 @@ class ClienteController extends Controller
     {
         try {
 
-            $clientes = Cliente::select('cliente.id', 'cliente.nombre', 'cliente.telefono', 'pais.nombre_pais as cliente_id')
-                ->join('pais', 'cliente.pais_id', '=', 'pais.id')
+            $clientes = Cliente::select('cliente.id', 'cliente.nombre', 'cliente.telefono', 'pais.nombre as fk_pais')
+                ->join('pais', 'cliente.fk_pais', '=', 'pais.id')
                 ->get();
 
             if ($clientes->count() > 0) {
@@ -40,7 +40,7 @@ class ClienteController extends Controller
             $validacion = Validator::make($request->all(), [
                 'nombre' => 'required',
                 'telefono' => 'required',
-                'pais_id' => 'required',
+                'fk_pais' => 'required',
             ]);
 
             if ($validacion->fails()) {
@@ -49,7 +49,7 @@ class ClienteController extends Controller
                     'data' => $validacion->messages()
                 ], 400);
             } else {
-                $clientes = Cliente::create($request->all());
+                $cliente = Cliente::create($request->all());
                 return response()->json([
                     'code' => 200,
                     'data' => 'Cliente Insertado'
@@ -67,7 +67,7 @@ class ClienteController extends Controller
             $validacion = Validator::make($request->all(), [
                 'nombre' => 'required',
                 'telefono' => 'required',
-                'pais_id' => 'required',
+                'fk_pais' => 'required',
             ]);
 
             if ($validacion->fails()) {
@@ -124,12 +124,13 @@ class ClienteController extends Controller
             // buscar el cliente
             $cliente = Cliente::find($id);
             if ($cliente) {
-                $datos = Cliente::select('cliente.id', 'cliente.nombre', 'cliente.telefono', 'pais.nombre_pais as cliente_id')
-                    ->join('pais', 'pais.id', '=', 'cliente.pais_id')
+                $datos = Cliente::select('cliente.id', 'cliente.nombre', 'cliente.telefono', 'pais.nombre as fk_pais')
+                    ->join('pais', 'pais.id', '=', 'cliente.fk_pais')
                     ->where('cliente.id', '=', $id)
                     ->get();
                 return response()->json([
                     'code' => 200,
+                    // para enviarle unicamente el cliente que esta solicitando
                     'data' => $datos[0]
                 ], 200);
             } else {
@@ -150,7 +151,7 @@ class ClienteController extends Controller
             // buscar el cliente
             $cliente = Cliente::find($id);
             if ($cliente) {
-                $datos = Cliente::select('cliente.id', 'cliente.nombre', 'cliente.telefono', 'cliente.pais_id')->get();
+                $datos = Cliente::select('cliente.id', 'cliente.nombre', 'cliente.telefono', 'cliente.fk_pais')->get();
                 return response()->json([
                     'code' => 200,
                     'data' => $datos[0]

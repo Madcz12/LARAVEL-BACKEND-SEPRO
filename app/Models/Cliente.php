@@ -13,6 +13,6 @@ class Cliente extends Model
         'id',
         'nombre',
         'telefono',
-        'pais_id'
+        'fk_pais'
     ];
 }
