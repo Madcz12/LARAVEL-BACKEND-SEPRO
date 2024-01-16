@@ -70,6 +70,7 @@ class UserController extends Controller
         try {
             $validacion = Validator::make($request->all(), [
                 'name' => 'required',
+                'username' => 'required',
                 'email' => 'required|unique:users',
                 'password' => 'required'
             ]);
@@ -96,7 +97,7 @@ class UserController extends Controller
     {
         try {
             $validacion = Validator::make($request->all(), [
-                'email' => 'required',
+                'username' => 'required',
                 'password' => 'required'
             ]);
 
@@ -106,8 +107,8 @@ class UserController extends Controller
                     'data' => $validacion->messages()
                 ], 400);
             } else {
-                if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
-                    $usuario = User::where('email', $request->email)->first();
+                if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+                    $usuario = User::where('username', $request->username)->first();
                     return response()->json([
                         'code' => 200,
                         'data' => $usuario,
