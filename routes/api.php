@@ -17,6 +17,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/cliente/find2/{id}', [ClienteController::class, 'find2']);
     // rutas para paises
     Route::get('/pais/select', [PaisController::class, 'select']);
+
 });
 // rutas para clientes
 

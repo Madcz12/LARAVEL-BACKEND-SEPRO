@@ -11,6 +11,7 @@ class Project extends Model
         'sector',
         'empresa',
         'nombre_proyecto',
+        'status_proyecto',
         'objetivo',
         'estudio',
         'alcance',
@@ -50,4 +51,39 @@ class Project extends Model
         'transfer_actives',
         'transfer_warrants',
     ];
+
+    public function permisos()
+    {
+        return $this->hasMany(Permisos::class);
+    }
+
+    public function financiamiento()
+    {
+        return $this->hasMany(Financiamiento::class);
+    }
+
+    public function contratacion()
+    {
+        return $this->hasMany(Contratacion::class);
+    }
+
+    public function tecnologia()
+    {
+        return $this->hasMany(Tecnologia::class);
+    }
+
+    public function gerente()
+    {
+        return $this->belongsTo(Gerente::class);
+    }
+
+    public function ejecucion()
+    {
+        return $this->belongsTo(Ejecucion::class);
+    }
+
+    public function analisis_opciones()
+    {
+        return $this->belongsTo(AnalisisOpciones::class);
+    }
 }
