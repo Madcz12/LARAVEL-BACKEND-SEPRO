@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\PaisController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,7 +20,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/pais/select', [PaisController::class, 'select']);
 
 });
-// rutas para clientes
+// rutas para proyectos
+Route::post('/proyecto/store', [ProjectController::class, 'store']);
 
 // gestionar usuarios
 Route::post('/usuario/register', [UserController::class, 'register']);

@@ -18,11 +18,11 @@ return new class extends Migration
             $table->string('empresa')->nullable();
             $table->string('objetivo')->nullable();
             $table->string('alcance')->nullable();
-            $table->decimal('monto', 8, 2);
-            $table->enum('financiamiento', ['propio', 'externo'])->default('propio');
+            $table->integer('monto');
+            $table->enum('financiamiento', ['propio', 'externo']);
             $table->string('nudos_criticos', 255);
             $table->dateTime('cronograma');
-            $table->boolean('gestiones_adquisicion', true);
+            $table->integer('gestiones_adquisicion');
             $table->string('base');
             $table->string('plan');
             $table->text('recomendaciones', 255);
